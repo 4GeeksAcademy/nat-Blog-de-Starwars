@@ -6,7 +6,7 @@ import { Vehicles } from "../component/Vehicles";
 
 export const Principal = () => {
     return (
-    <div className="principal m-3 ">
+    <div className="principal m-3   ">
         <Characters />
         <Planets />
         <Vehicles />
