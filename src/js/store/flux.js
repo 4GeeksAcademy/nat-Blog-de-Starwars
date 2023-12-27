@@ -1,59 +1,65 @@
-const getState = ({ getStore, getActions, setStore }) => {
+const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
 
 			favorites: [],
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			characters: [],
+			planets: [],
+			vehicles: [],
 		},
 		actions: {
 
-			addToFavorites: (character) => {
-                const { favorites } = getStore();
-                setStore({ favorites: [...favorites, character] });
-            },
-			removeFromFavorites: (characterId) => {
-                const { favorites } = getStore();
-                const updatedFavorites = favorites.filter((char) => char.id !== characterId);
-                setStore({ favorites: updatedFavorites });
-            },
+			getPlanets: () => {
+				fetch('https://swapi.dev/api/planets')
+					.then(res => res.json())
+					.then(data => setStore({ planets: data.results }))
+					.catch(err => console.error(err))
+			},
+			getVehicles: () => {
+				fetch('https://swapi.dev/api/vehicles')
+					.then(res => res.json())
+					.then(data => setStore({ vehicles: data.results }))
+					.catch(err => console.error(err))
+			},
+
+			getCharacters: () => {
+				fetch('https://swapi.dev/api/people')
+					.then(res => res.json())
+					.then(data => setStore({ characters: data.results }))
+					.catch(err => console.error(err))
 			
-		
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
 
-				//reset the global store
-				setStore({ demo: demo });
+		addToFavorites: (item) => {
+			let store = getStore();
+			
+			let newFavorites = [...store.favorites, item];
+			setStore({ favorites: newFavorites });
+		},
+
+		removeFromFavorites: (item) => {
+			let store = getStore();
+			let newFavorites = store.favorites.filter((fav, fav) !== item);
+			setStore({ favorites: newFavorites });
+		},
+		toggleFavorite: (item) => {
+			let store = getStore();
+			let isFavorite = store.favorites.some(fav => fav === item);
+
+			if (isFavorite) {
+				let newFavorites = store.favorites.filter(fav => fav !== item);
+				setStore({ favorites: newFavorites });
+				console.log("eliminar favorito", newFavorites)
+			} else {
+				let newFavorites = [...store.favorites, item];
+				setStore({ favorites: newFavorites });
+				console.log("a favorito", newFavorites)
 			}
-		}
-	};
+		},
+
+	}
+};
 };
 
 export default getState;
