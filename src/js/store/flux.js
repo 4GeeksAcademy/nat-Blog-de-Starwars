@@ -6,6 +6,7 @@ const getState = ({ getStore, setStore }) => {
 			characters: [],
 			planets: [],
 			vehicles: [],
+			
 		},
 		actions: {
 
@@ -40,7 +41,7 @@ const getState = ({ getStore, setStore }) => {
 
 		removeFromFavorites: (item) => {
 			let store = getStore();
-			let newFavorites = store.favorites.filter((fav, fav) !== item);
+			let newFavorites = store.favorites.filter(fav => fav !== item);
 			setStore({ favorites: newFavorites });
 		},
 		toggleFavorite: (item) => {

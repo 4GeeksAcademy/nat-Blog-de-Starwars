@@ -4,18 +4,19 @@ import { Link } from "react-router-dom";
 
 
 
-export const FavoriteCharacters = () => {
-    const { store } = useContext(Context);
+export const Favorites = () => {
+    const { store, actions } = useContext(Context);
     const { favorites } = store;
 
     return (
         <div className="dropdown ml-auto">
+        
+      <div className="dropdown">
             <button
-                className="btn btn-secondary dropdown-toggle"
+                className="btn btn-dark dropdown-toggle"
                 type="button"
                 id="dropdownMenuButton"
-                data-toggle="dropdown"
-                //aria-haspopup="true"
+                data-bs-toggle="dropdown"
                 aria-expanded="false"
             >
                 Favorites ({favorites.length})
@@ -26,24 +27,19 @@ export const FavoriteCharacters = () => {
 
 								<div className="nombre-favoritos">
 									<strong>{item.name}</strong>
-								</div>
+								
 
-								<div className="eliminar-favoritos" onClick={() => actions.toggleFavorite(item)}>
-									<i className="fa-solid fa-trash-can"></i>
-								</div>
+								<div className="eliminar-favoritos"><button  onClick={() => actions.toggleFavorite(item)}>💔</button></div>
+                                </div>
 
 							</li>
 						))}
 
             </ul>
-           {/*  <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                {favorites.map((character, index) => (
-                    <ul className="dropdown-item" key={index}>
-                        {character.name}
-                    </ul>
-                ))}
-            </div> */}
+            </div>
+          
         </div>
+       
         
     );
 };

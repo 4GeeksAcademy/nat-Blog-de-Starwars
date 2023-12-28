@@ -6,7 +6,7 @@ import { Vehicles } from "../component/Vehicles";
 
 export const Principal = () => {
     return (
-        <div className=" container-fluid container-home ">
+        <div className=" container-fluid container-home" >
             <div className="container">
                 <Characters />
                 <Planets />
